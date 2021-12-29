@@ -1,13 +1,26 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 
 import {NavigationContainer} from '@react-navigation/native';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import Icon from 'react-native-vector-icons/FontAwesome5';
 import Home from './screens/Home';
+import PushNotification from 'react-native-push-notification';
 
 const Tab = createBottomTabNavigator();
 
 const App = () => {
+  // Function to create a notification channel
+  const createChannels = () => {
+    PushNotification.createChannels({
+      channelId: 'channelId',
+      channelName: 'Todo Application Notification',
+    });
+  };
+
+  // Create channel when render in first time
+  useEffect(() => {
+    createChannels();
+  }, []);
   return (
     <>
       <NavigationContainer>
