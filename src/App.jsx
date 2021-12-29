@@ -11,7 +11,7 @@ const Tab = createBottomTabNavigator();
 const App = () => {
   // Function to create a notification channel
   const createChannels = () => {
-    PushNotification.createChannels({
+    PushNotification.createChannel({
       channelId: 'channelId',
       channelName: 'Todo Application Notification',
     });
