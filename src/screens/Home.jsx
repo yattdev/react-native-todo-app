@@ -1,21 +1,19 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {View, Text, StyleSheet} from 'react-native';
-import MyButton from '../utils/MyButton';
 
 const Home = ({navigation}) => {
-  const onPressHandler = () => {
-    navigation.navigate('Camera');
-  };
+  useEffect(() => {
+    const timeOut = setTimeout(() => {
+      navigation.navigate('todo');
+    }, 2000);
+
+    return () => clearTimeout(timeOut);
+  }, [navigation]);
+
   return (
     <>
       <View style={styles.body}>
-        <Text style={styles.text}>Tester la Camera</Text>
-        <MyButton
-          buttonStyle={styles.button}
-          buttonText="Open Camera"
-          buttonColor="#0080ff"
-          onPressHandler={onPressHandler}
-        />
+        <Text style={styles.text}>TODO APP</Text>
       </View>
     </>
   );
