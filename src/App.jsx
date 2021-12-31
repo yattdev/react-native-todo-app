@@ -29,6 +29,10 @@ const TodoTabNavigator = () => {
               iconName = 'clipboard-check';
               size = focused ? 25 : 20;
               color = focused ? '#0080ff' : '#555';
+            } else if (route.name === 'Task') {
+              iconName = 'file';
+              size = focused ? 25 : 20;
+              color = focused ? '#0080ff' : '#555';
             }
 
             return (
