@@ -5,7 +5,7 @@ import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import Icon from 'react-native-vector-icons/FontAwesome5';
 import Home from './screens/Home';
 import PushNotification from 'react-native-push-notification';
-import Camera from './screens/Camera';
+import Todo from './screens/Todo';
 
 const Tab = createBottomTabNavigator();
 
@@ -34,8 +34,8 @@ const App = () => {
                 iconName = 'home';
                 size = focused ? 25 : 20;
                 color = focused ? '#f0f' : '#555';
-              } else if (route.name === 'Camera') {
-                iconName = 'camera';
+              } else if (route.name === 'Todo') {
+                iconName = 'Todo';
                 size = focused ? 25 : 20;
                 color = focused ? '#f0f' : '#555';
               }
@@ -47,7 +47,7 @@ const App = () => {
             },
           })}>
           <Tab.Screen name="Home" component={Home} />
-          <Tab.Screen name="Camera" component={Camera} />
+          <Tab.Screen name="Todo" component={Todo} />
         </Tab.Navigator>
       </NavigationContainer>
     </>
