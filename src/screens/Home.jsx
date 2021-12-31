@@ -4,7 +4,7 @@ import {View, Text, StyleSheet} from 'react-native';
 const Home = ({navigation}) => {
   useEffect(() => {
     const timeOut = setTimeout(() => {
-      navigation.navigate('Todo');
+      navigation.navigate('TodoTabNavigator');
     }, 2000);
 
     return () => clearTimeout(timeOut);
