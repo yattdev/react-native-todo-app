@@ -8,6 +8,7 @@ import Home from './screens/Home';
 import PushNotification from 'react-native-push-notification';
 import Todo from './screens/Todo';
 import Done from './screens/Done';
+import Task from './screens/Task';
 
 // Create Bottom tab navigator as todo app navigator
 const Tab = createBottomTabNavigator();
@@ -39,6 +40,7 @@ const TodoTabNavigator = () => {
         })}>
         <Tab.Screen name="Todo" component={Todo} />
         <Tab.Screen name="Done" component={Done} />
+        <Tab.Screen name="Task" component={Task} />
       </Tab.Navigator>
     </>
   );
