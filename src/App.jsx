@@ -23,16 +23,16 @@ const TodoTabNavigator = () => {
             if (route.name === 'Todo') {
               iconName = 'clipboard-list';
               size = focused ? 25 : 20;
-              color = focused ? '#f0f' : '#555';
+              color = focused ? '#0080ff' : '#555';
             } else if (route.name === 'Done') {
               iconName = 'clipboard-check';
               size = focused ? 25 : 20;
-              color = focused ? '#f0f' : '#555';
+              color = focused ? '#0080ff' : '#555';
             }
 
             return (
               <>
-                <Icon name={iconName} size={25} color={color} />
+                <Icon name={iconName} size={size} color={color} />
               </>
             );
           },
