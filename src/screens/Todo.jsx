@@ -2,11 +2,13 @@ import React from 'react';
 import {TouchableOpacity, View, Text, StyleSheet} from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome5';
 
-const Todo = () => {
+const Todo = ({navigation}) => {
   return (
     <>
       <View style={styles.body}>
-        <TouchableOpacity style={styles.button}>
+        <TouchableOpacity
+          style={styles.button}
+          onPress={() => navigation.navigate('Task')}>
           <Icon name="plus" size={20} color="#ffffff" />
         </TouchableOpacity>
       </View>
