@@ -35,11 +35,22 @@ const Task = ({navigation}) => {
         Title: title,
         Desc: desc,
       };
-      let newTasks = [...tasks, Task];
+      const index = tasks.findIndex(task => task.ID === taskID);
+      let newTasks = [];
+      if (index > -1) {
+        newTasks = [...tasks];
+        newTasks[index] = Task;
+      } else {
+        newTasks = [...tasks, Task];
+      }
       await AsyncStorage.setItem('Tasks', JSON.stringify(newTasks))
         .then(() => {
           dispatch(setTasks(newTasks));
-          Alert.alert('Success !', 'Task Saved successfully');
+          if (index > -1) {
+            Alert.alert('Success !', 'Task was update successfully');
+          } else {
+            Alert.alert('Success !', 'Task Saved successfully');
+          }
           navigation.goBack();
         })
         .catch(err => console.log(err));
