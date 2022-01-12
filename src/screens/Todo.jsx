@@ -35,7 +35,7 @@ const Todo = ({navigation}) => {
           style={styles.button}
           onPress={() => {
             dispatch(setTaskID(tasks.length + 1));
-            navigation.navigate('AllTask');
+            navigation.navigate('Task');
           }}>
           <Icon name="plus" size={20} color="#ffffff" />
         </TouchableOpacity>
