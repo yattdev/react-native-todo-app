@@ -9,6 +9,8 @@ import PushNotification from 'react-native-push-notification';
 import Todo from './screens/Todo';
 import Done from './screens/Done';
 import Task from './screens/Task';
+import {Provider} from 'react-redux';
+import {Store} from './redux/store';
 
 // Create Bottom tab navigator as todo app navigator
 const Tab = createBottomTabNavigator();
@@ -68,28 +70,30 @@ const App = () => {
   }, []);
   return (
     <>
-      <NavigationContainer>
-        <RootStack.Navigator
-          initialRouteName="Home"
-          screenOptions={{
-            headerTitleAlign: 'center',
-            headerStyle: {
-              backgroundColor: '#0080ff',
-            },
-            headerTinColor: '#fff',
-            headerTitleStyle: {
-              fontSize: 25,
-              fontWeight: 'bold',
-            },
-          }}>
-          <RootStack.Screen name="Home" component={Home} />
-          <RootStack.Screen
-            name="TodoTabNavigator"
-            component={TodoTabNavigator}
-            options={{headerShown: false}}
-          />
-        </RootStack.Navigator>
-      </NavigationContainer>
+      <Provider store={Store}>
+        <NavigationContainer>
+          <RootStack.Navigator
+            initialRouteName="Home"
+            screenOptions={{
+              headerTitleAlign: 'center',
+              headerStyle: {
+                backgroundColor: '#0080ff',
+              },
+              headerTinColor: '#fff',
+              headerTitleStyle: {
+                fontSize: 25,
+                fontWeight: 'bold',
+              },
+            }}>
+            <RootStack.Screen name="Home" component={Home} />
+            <RootStack.Screen
+              name="TodoTabNavigator"
+              component={TodoTabNavigator}
+              options={{headerShown: false}}
+            />
+          </RootStack.Navigator>
+        </NavigationContainer>
+      </Provider>
     </>
   );
 };
