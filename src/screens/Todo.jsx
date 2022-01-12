@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useCallback, useEffect} from 'react';
 import {TouchableOpacity, View, Text, StyleSheet} from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome5';
 import {useSelector, useDispatch} from 'react-redux';
@@ -9,7 +9,11 @@ const Todo = ({navigation}) => {
   const {tasks} = useSelector(state => state.taskReducer);
   const dispatch = useDispatch();
 
-  const getTasks = async () => {
+  useEffect(() => {
+    getTasks();
+  }, [getTasks]);
+
+  const getTasks = useCallback(async () => {
     try {
       await AsyncStorage.getItem('Tasks')
         .then(AllTask => {
@@ -22,7 +26,7 @@ const Todo = ({navigation}) => {
     } catch (err) {
       console.log(err);
     }
-  };
+  }, [dispatch]);
 
   return (
     <>
