@@ -1,5 +1,5 @@
 import React, {useCallback, useEffect} from 'react';
-import {TouchableOpacity, View, Text, StyleSheet} from 'react-native';
+import {TouchableOpacity, View, Text, StyleSheet, FlatList} from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome5';
 import {useSelector, useDispatch} from 'react-redux';
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -13,9 +13,9 @@ const Todo = ({navigation}) => {
     getTasks();
   }, [getTasks]);
 
-  const getTasks = useCallback(async () => {
+  const getTasks = useCallback(() => {
     try {
-      await AsyncStorage.getItem('Tasks')
+      AsyncStorage.getItem('Tasks')
         .then(AllTask => {
           const parsedTasks = JSON.parse(AllTask);
           if (parsedTasks && typeof parsedTasks === 'object') {
@@ -31,6 +31,28 @@ const Todo = ({navigation}) => {
   return (
     <>
       <View style={styles.body}>
+        <View>
+          <FlatList
+            data={tasks}
+            renderItem={({item}) => (
+              <TouchableOpacity
+                onPress={() => {
+                  dispatch(setTaskID(item.ID));
+                  console.log(item.ID);
+                  navigation.navigate('Task');
+                }}
+                style={styles.item}>
+                <Text style={styles.title} numberOfLines={1}>
+                  {item.Title}
+                </Text>
+                <Text style={styles.desc} numberOfLines={1}>
+                  {item.Desc}
+                </Text>
+              </TouchableOpacity>
+            )}
+            keyExtractor={(item, index) => index.toString()}
+          />
+        </View>
         <TouchableOpacity
           style={styles.button}
           onPress={() => {
@@ -59,6 +81,25 @@ const styles = StyleSheet.create({
     bottom: 10,
     right: 10,
     elevation: 10,
+  },
+  title: {
+    color: '#000',
+    fontSize: 30,
+    margin: 5,
+  },
+  desc: {
+    color: '#999999',
+    fontSize: 20,
+    margin: 5,
+  },
+  item: {
+    marginHorizontal: 10,
+    marginVertical: 7,
+    paddingHorizontal: 10,
+    backgroundColor: '#ffffff',
+    justifyContent: 'center',
+    borderRadius: 10,
+    elevation: 5,
   },
 });
 
