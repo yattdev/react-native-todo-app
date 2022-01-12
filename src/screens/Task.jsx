@@ -1,10 +1,39 @@
 import React, {useState} from 'react';
-import {View, Text, StyleSheet, TextInput} from 'react-native';
+import {View, Text, StyleSheet, TextInput, Alert} from 'react-native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import MyButton from '../utils/MyButton';
+import {useSelector, useDispatch} from 'react-redux';
+import {setTasks} from '../redux/actions';
 
-const Task = () => {
+const Task = ({navigation}) => {
   const [title, setTitle] = useState('');
   const [desc, setDesc] = useState('');
+
+  const {tasks, taskID} = useSelector(state => state.taskReducer);
+  const dispatch = useDispatch();
+
+  const setTask = async () => {
+    if (title.length === 0) {
+      Alert.alert('Warning!', 'Please write your task title.');
+    }
+    try {
+      var Task = {
+        ID: taskID,
+        Title: title,
+        Desc: desc,
+      };
+      let newTasks = [...tasks, Task];
+      await AsyncStorage.setItem('Tasks', JSON.stringify(newTasks))
+        .then(() => {
+          dispatch(setTasks(newTasks));
+          Alert.alert('Success !', 'Task Saved successfully');
+          navigation.goBack();
+        })
+        .catch(err => console.log(err));
+    } catch (error) {
+      console.log(error);
+    }
+  };
   return (
     <>
       <View style={styles.body}>
@@ -23,6 +52,7 @@ const Task = () => {
           buttonText="Save task"
           buttonColor="#1ebf00"
           buttonStyle={styles.button}
+          onPressHandler={setTask}
         />
       </View>
     </>
