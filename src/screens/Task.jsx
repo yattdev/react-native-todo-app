@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect, useCallback} from 'react';
 import {View, Text, StyleSheet, TextInput, Alert} from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import MyButton from '../utils/MyButton';
@@ -11,6 +11,19 @@ const Task = ({navigation}) => {
 
   const {tasks, taskID} = useSelector(state => state.taskReducer);
   const dispatch = useDispatch();
+
+  const getTask = useCallback(async () => {
+    const existedTask = tasks.find(task => task.ID === taskID);
+    console.log(existedTask);
+    if (existedTask) {
+      setTitle(existedTask.Title);
+      setDesc(existedTask.Desc);
+    }
+  }, [tasks, taskID]);
+
+  useEffect(() => {
+    getTask();
+  }, [getTask]);
 
   const setTask = async () => {
     if (title.length === 0) {
@@ -41,12 +54,14 @@ const Task = ({navigation}) => {
           onChangeText={value => setTitle(value)}
           style={styles.input}
           placeholder="Title"
+          value={title}
         />
         <TextInput
           onChangeText={value => setDesc(value)}
           style={styles.input}
           placeholder="Description"
           multiline
+          value={desc}
         />
         <MyButton
           buttonText="Save task"
